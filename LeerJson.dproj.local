@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/07/17 18:05:53.000.864,=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/07/31 17:57:18.250,=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/07/31 18:08:06.266,C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\LeerJson.dproj=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2023/07/31 18:27:56.273,C:\PROYECTOS\Carlos\proyectos delphi\LecturasJSON\Unit2.fmx=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit2.fmx</Transaction>
+    <Transaction>2023/07/31 18:27:56.273,C:\PROYECTOS\Carlos\proyectos delphi\LecturasJSON\Unit2.pas=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/07/31 18:28:01.463,C:\PROYECTOS\Carlos\proyectos delphi\LecturasJSON\LeerJson.dproj=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\LeerJson.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

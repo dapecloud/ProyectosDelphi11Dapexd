@@ -2,67 +2,56 @@ object Form2: TForm2
   Left = 0
   Top = 0
   Caption = 'Form2'
-  ClientHeight = 564
-  ClientWidth = 404
+  ClientHeight = 568
+  ClientWidth = 876
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnCreate = FormCreate
   DesignerMasterStyle = 3
-  object Button1: TButton
-    Position.X = 208.000000000000000000
-    Position.Y = 192.000000000000000000
+  object Buscar: TButton
+    Position.X = 8.000000000000000000
+    Position.Y = 80.000000000000000000
     TabOrder = 0
-    Text = 'Button1'
+    Text = 'Buscar'
+    OnClick = BuscarClick
   end
-  object Button2: TButton
-    Position.X = 208.000000000000000000
-    Position.Y = 304.000000000000000000
+  object Submit: TButton
+    Position.X = 8.000000000000000000
+    Position.Y = 132.000000000000000000
     TabOrder = 1
-    Text = 'Button2'
-  end
-  object Button3: TButton
-    Position.X = 208.000000000000000000
-    Position.Y = 424.000000000000000000
-    TabOrder = 2
-    Text = 'Button3'
-  end
-  object Circle1: TCircle
-    Position.X = 112.000000000000000000
-    Position.Y = 186.000000000000000000
-    Size.Width = 50.000000000000000000
-    Size.Height = 50.000000000000000000
-    Size.PlatformDefault = False
-  end
-  object Rectangle1: TRectangle
-    Position.X = 112.000000000000000000
-    Position.Y = 418.000000000000000000
-    Size.Width = 50.000000000000000000
-    Size.Height = 50.000000000000000000
-    Size.PlatformDefault = False
+    Text = 'Submit'
+    OnClick = SubmitClick
   end
   object Label1: TLabel
-    Position.X = 112.000000000000000000
-    Position.Y = 72.000000000000000000
-    Size.Width = 169.000000000000000000
+    Position.X = 89.000000000000000000
+    Position.Y = 101.000000000000000000
+    Size.Width = 536.000000000000000000
     Size.Height = 23.000000000000000000
     Size.PlatformDefault = False
-    Text = 'Label1'
+    Text = 'Haga click en Buscar para seleccionar el .json'
+    TabOrder = 2
+    OnClick = BuscarClick
+  end
+  object TreeView1: TTreeView
+    Position.X = 89.000000000000000000
+    Position.Y = 132.000000000000000000
+    Size.Width = 752.000000000000000000
+    Size.Height = 428.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Viewport.Width = 752.000000000000000000
+    Viewport.Height = 428.000000000000000000
+  end
+  object Label2: TLabel
+    Position.X = 8.000000000000000000
+    Position.Y = 32.000000000000000000
+    Size.Width = 833.000000000000000000
+    Size.Height = 49.000000000000000000
+    Size.PlatformDefault = False
+    Text = 
+      'Lector de Archivos JSON, primero selecciona el archivo donde lo ' +
+      'tengas guardado en el boton buscar, despu'#233's da click en submit p' +
+      'ara mostrarlo'
     TabOrder = 5
-  end
-  object Ellipse1: TEllipse
-    Position.X = 104.000000000000000000
-    Position.Y = 298.000000000000000000
-    Size.Width = 81.000000000000000000
-    Size.Height = 50.000000000000000000
-    Size.PlatformDefault = False
-  end
-  object ColorPicker1: TColorPicker
-    Position.X = 320.000000000000000000
-    Position.Y = 402.000000000000000000
-    Size.Width = 32.000000000000000000
-    Size.Height = 120.000000000000000000
-    Size.PlatformDefault = False
-    TabOrder = 8
   end
 end

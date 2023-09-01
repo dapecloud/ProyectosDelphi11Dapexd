@@ -4,29 +4,23 @@ interface
 
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
-  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.Controls.Presentation,
-  FMX.StdCtrls, FMX.Layouts, FMX.Colors, FMX.Objects;
+  FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListBox,
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.Layouts, FMX.TreeView,
+  System.JSON, System.IOUtils, FMX.Platform;
 
 type
   TForm2 = class(TForm)
-    Circle1: TCircle;
-    Ellipse1: TEllipse;
-    Rectangle1: TRectangle;
-    Button1: TButton;
-    Button2: TButton;
-    Button3: TButton;
-    ColorPicker1: TColorPicker;
+    TreeView1: TTreeView;
     Label1: TLabel;
-    procedure Button1Click(Sender: TObject);
-    procedure Button2Click(Sender: TObject);
-    procedure Button3Click(Sender: TObject);
-    procedure ColorPicker1Change(Sender: TObject);
-    procedure FormCreate(Sender: TObject);
+    Buscar: TButton;
+    Submit: TButton;
+    Label2: TLabel;
+    procedure BuscarClick(Sender: TObject);
+    procedure SubmitClick(Sender: TObject);
   private
     { Private declarations }
-    procedure MostrarFigura(Figura: TControl);
-    procedure OcultarFigura(Figura: TControl);
-    procedure ActualizarEtiquetaSeleccionada;
+    procedure LeerJSONArchivo(const RutaArchivo: string);
+    procedure AgregarNodosTreeView(NodoJSON: TJSONValue; NodoTreeView: TTreeViewItem);
   public
     { Public declarations }
   end;
@@ -38,75 +32,78 @@ implementation
 
 {$R *.fmx}
 
-procedure TForm2.FormCreate(Sender: TObject);
-begin
-  ColorPicker1.Visible := False;
-end;
-
-procedure TForm2.MostrarFigura(Figura: TControl);
-begin
-  Figura.Visible := True;
-  ColorPicker1.Visible := True;
-  ActualizarEtiquetaSeleccionada;
-end;
-
-procedure TForm2.OcultarFigura(Figura: TControl);
-begin
-  Figura.Visible := False;
-  if not (Circle1.Visible or Ellipse1.Visible or Rectangle1.Visible) then
-    ColorPicker1.Visible := False;
-  ActualizarEtiquetaSeleccionada;
-end;
-
-procedure TForm2.ActualizarEtiquetaSeleccionada;
-begin
-  if Circle1.Visible then
-    Label1.Text := 'Figura seleccionada: Círculo'
-  else if Ellipse1.Visible then
-    Label1.Text := 'Figura seleccionada: Elipse'
-  else if Rectangle1.Visible then
-    Label1.Text := 'Figura seleccionada: Cuadrado'
-  else if not (Circle1.Visible or Ellipse1.Visible or Rectangle1.Visible) then
-    Label1.Text := 'Selecciona una figura para cambiar el color'
-  else
-    Label1.Text := 'Presiona algún botón para mostrar una figura';
-end;
-
-procedure TForm2.Button1Click(Sender: TObject);
-begin
-  if Circle1.Visible then
-    OcultarFigura(Circle1)
-  else
-    MostrarFigura(Circle1);
-end;
-
-procedure TForm2.Button2Click(Sender: TObject);
-begin
-  if Ellipse1.Visible then
-    OcultarFigura(Ellipse1)
-  else
-    MostrarFigura(Ellipse1);
-end;
-
-procedure TForm2.Button3Click(Sender: TObject);
-begin
-  if Rectangle1.Visible then
-    OcultarFigura(Rectangle1)
-  else
-    MostrarFigura(Rectangle1);
-end;
-
-procedure TForm2.ColorPicker1Change(Sender: TObject);
+procedure TForm2.LeerJSONArchivo(const RutaArchivo: string);
 var
-  NuevoColor: TAlphaColor;
+  JSONArchivo: TStringStream;
+  NodoJSON: TJSONValue;
 begin
-  NuevoColor := ColorPicker1.Color;
-  if Circle1.Visible then
-    Circle1.Fill.Color := NuevoColor
-  else if Ellipse1.Visible then
-    Ellipse1.Fill.Color := NuevoColor
-  else if Rectangle1.Visible then
-    Rectangle1.Fill.Color := NuevoColor;
+  JSONArchivo := TStringStream.Create;
+  try
+    JSONArchivo.LoadFromFile(RutaArchivo);
+    NodoJSON := TJSONObject.ParseJSONValue(JSONArchivo.DataString);
+    if Assigned(NodoJSON) then
+    begin
+      TreeView1.Clear;
+      AgregarNodosTreeView(NodoJSON, nil);
+    end
+    else
+      ShowMessage('Error al leer el archivo JSON');
+  finally
+    JSONArchivo.Free;
+  end;
+end;
+
+procedure TForm2.AgregarNodosTreeView(NodoJSON: TJSONValue; NodoTreeView: TTreeViewItem);
+var
+  I: Integer;
+  NuevoNodo: TTreeViewItem;
+begin
+  if NodoJSON is TJSONObject then
+  begin
+    for I := 0 to TJSONObject(NodoJSON).Count - 1 do
+    begin
+      NuevoNodo := TTreeViewItem.Create(TreeView1);
+      NuevoNodo.Text := TJSONObject(NodoJSON).Pairs[I].JsonString.Value;
+      if Assigned(NodoTreeView) then
+        NodoTreeView.AddObject(NuevoNodo)
+      else
+        TreeView1.AddObject(NuevoNodo);
+
+      AgregarNodosTreeView(TJSONObject(NodoJSON).Pairs[I].JsonValue, NuevoNodo);
+    end;
+  end
+  else if NodoJSON is TJSONArray then
+  begin
+    for I := 0 to TJSONArray(NodoJSON).Count - 1 do
+    begin
+      NuevoNodo := TTreeViewItem.Create(TreeView1);
+      NuevoNodo.Text := TJSONArray(NodoJSON).Items[I].Value;
+      if Assigned(NodoTreeView) then
+        NodoTreeView.AddObject(NuevoNodo)
+      else
+        TreeView1.AddObject(NuevoNodo);
+
+      AgregarNodosTreeView(TJSONArray(NodoJSON).Items[I], NuevoNodo);
+    end;
+  end
+  else if Assigned(NodoTreeView) then
+    NodoTreeView.Text := NodoJSON.Value;
+end;
+
+procedure TForm2.BuscarClick(Sender: TObject);
+var
+  RutaArchivo: string;
+begin
+  RutaArchivo := TPath.GetDocumentsPath;
+  RutaArchivo := TPath.Combine(RutaArchivo, 'archivo.json');
+
+  Label1.Text := RutaArchivo;
+end;
+
+procedure TForm2.SubmitClick(Sender: TObject);
+begin
+  if not Label1.Text.IsEmpty then
+    LeerJSONArchivo(Label1.Text);
 end;
 
 end.

@@ -1,0 +1,58 @@
+{
+    "results": [
+        {
+            "chapterName": "Carlos Chapter",
+            "subChapterList": [],
+            "categories": []
+        },
+        {
+            "chapterName": "No SubChapter Test 2",
+            "subChapterList": [
+                {
+                    "subChapterName": "[Insert SubChapter Name]",
+                    "categories": [
+                        {
+                            "categoryName": "[Insert Category Name]"
+                        },
+                        {
+                            "categoryName": "TEST A C"
+                        },
+                        {
+                            "categoryName": "TEST CA B"
+                        }
+                    ]
+                }
+            ],
+            "categories": []
+        },
+        {
+            "chapterName": "No subchapters test",
+            "subChapterList": [
+                {
+                    "subChapterName": "ZZZZzzzzzzz"
+                },
+                {
+                    "subChapterName": "TEST Sub chapter",
+                    "categories": [
+                        {
+                            "categoryName": "cat a"
+                        }
+                    ]
+                }
+            ],
+            "categories": []
+        },
+        {
+            "chapterName": "TEST chapter sub",
+            "subChapterList": [
+                {
+                    "subChapterName": "[Insert SubChapter Name]"
+                },
+                {
+                    "subChapterName": "test a "
+                }
+            ],
+            "categories": []
+        }
+    ]
+}

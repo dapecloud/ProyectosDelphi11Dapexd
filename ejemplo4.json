@@ -1,0 +1,27 @@
+[
+  {
+    "Nombre": "Producto 1",
+    "Precio": "10,99",
+    "Categoria": "Electrónica"
+  },
+  {
+    "Nombre": "Producto 2",
+    "Precio": "25,50",
+    "Categoria": "Ropa"
+  },
+  {
+    "Nombre": "Producto 3",
+    "Precio": "5,75",
+    "Categoria": "Comida"
+  },
+  {
+    "Nombre": "Producto 4",
+    "Precio": "15,00",
+    "Categoria": "Hogar"
+  },
+  {
+    "Nombre": "Producto 5",
+    "Precio": "8,99",
+    "Categoria": "Electrónica"
+  }
+]

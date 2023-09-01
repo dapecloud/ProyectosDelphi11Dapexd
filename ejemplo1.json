@@ -1,0 +1,14 @@
+{
+  "nombre": "Juan",
+  "edad": 30,
+  "Residencia": {
+    "ciudad": "Ciudad de México",
+    "barrio": "Condesa"
+  },
+  "hobbies": ["correr", "leer", "cocinar"],
+  "casado": false,
+  "trabajo": {
+    "empresa": "ABC Corp",
+    "cargo": "Analista de Datos"
+  }
+}

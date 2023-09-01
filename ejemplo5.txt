@@ -1,0 +1,170 @@
+{
+    "results": [
+        {
+            "chapterName": "Carlos Chapter",
+            "chapterId": 30332,
+            "subChapterList": [],
+            "categories": [],
+            "attachments": [],
+            "match": false
+        },
+        {
+            "chapterName": "No SubChapter Test 2",
+            "chapterId": 30511,
+            "subChapterList": [
+                {
+                    "subChapterName": "[Insert SubChapter Name]",
+                    "subChapterId": 30536,
+                    "categories": [
+                        {
+                            "categoryName": "[Insert Category Name]",
+                            "categoryId": 30512,
+                            "chapterName": "No SubChapter Test 2",
+                            "subChapter": "[Insert SubChapter Name]",
+                            "attachments": [],
+                            "match": false
+                        },
+                        {
+                            "categoryName": "TEST A C",
+                            "categoryId": 30516,
+                            "chapterName": "No SubChapter Test 2",
+                            "subChapter": "[Insert SubChapter Name]",
+                            "attachments": [],
+                            "match": false
+                        },
+                        {
+                            "categoryName": "TEST CA B",
+                            "categoryId": 30517,
+                            "chapterName": "No SubChapter Test 2",
+                            "subChapter": "[Insert SubChapter Name]",
+                            "attachments": [],
+                            "match": false
+                        }
+                    ],
+                    "seqNumber": 1000,
+                    "match": false
+                }
+            ],
+            "categories": [],
+            "match": false
+        },
+        {
+            "chapterName": "No subchapters test",
+            "chapterId": 30497,
+            "subChapterList": [
+                {
+                    "subChapterName": "ZZZZzzzzzzz",
+                    "subChapterId": 30545,
+                    "categories": [],
+                    "match": false
+                },
+                {
+                    "subChapterName": "TEST Sub chapter",
+                    "subChapterId": 30510,
+                    "categories": [
+                        {
+                            "categoryName": "cat a",
+                            "categoryId": 30504,
+                            "chapterName": "No subchapters test",
+                            "subChapter": "TEST Sub chapter",
+                            "attachments": [],
+                            "match": false
+                        }
+                    ],
+                    "seqNumber": 2000,
+                    "match": false
+                }
+            ],
+            "categories": [],
+            "attachments": [],
+            "match": false
+        },
+        {
+            "chapterName": "TEST chapter sub",
+            "chapterId": 30501,
+            "subChapterList": [
+                {
+                    "subChapterName": "[Insert SubChapter Name]",
+                    "subChapterId": 30502,
+                    "categories": [],
+                    "match": false
+                },
+                {
+                    "subChapterName": "test a ",
+                    "subChapterId": 30503,
+                    "categories": [],
+                    "match": false
+                }
+            ],
+            "categories": [],
+            "attachments": [],
+            "match": false
+        }
+    ]
+}
+
+
+ahora por favor te pido que modifiques el código para que se pueda hacer lo siguiente: 
+1. modificar la deserealización para que a cada objeto se le asigne su respectivo ID que viene indicado en el json, aparte de los respectivos nombres que ya están. (por lo tanto también se modifica el Unit MyJsonClasses)
+2. se añade un showmessage general que mostrará el nombre y el ID del objeto seleccionado, cada vez que se le de click a un objeto del treeview, ya sea un Chapter, SubChapter o un Category.
+La idea es que se muestre ese mensaje cuando se le de click al objeto del treeview, pero de ser posible que no lo muestre cuando se despliegan los nodos, si no es posible hacer eso, pues que muestre el mensaje también al desplegar los nodos del treeview.
+3. Por favor cuando me respodas muéstrame ambos códigos, el del Unit Unit1 y el Unit MyJsonClasses
+Un ejemplo del json con el que se está trabajando actualmente y que el código ya funciona para lo que queremos hasta ahora, es el siguiente:
+{
+  "results": [
+    {
+      "chapterName": "Carlos Chapter",
+      "subChapterList": [],
+      "categories": []
+    },
+    {
+      "chapterName": "No SubChapter Test 2",
+      "subChapterList": [
+        {
+          "subChapterName": "[Insert SubChapter Name]",
+          "categories": [
+            {
+              "categoryName": "[Insert Category Name]"
+            },
+            {
+              "categoryName": "TEST A C"
+            },
+            {
+              "categoryName": "TEST CA B"
+            }
+          ]
+        }
+      ],
+      "categories": []
+    },
+    {
+      "chapterName": "No subchapters test",
+      "subChapterList": [
+        {
+          "subChapterName": "ZZZZzzzzzzz"
+        },
+        {
+          "subChapterName": "TEST Sub chapter",
+          "categories": [
+            {
+              "categoryName": "cat a"
+            }
+          ]
+        }
+      ],
+      "categories": []
+    },
+    {
+      "chapterName": "TEST chapter sub",
+      "subChapterList": [
+        {
+          "subChapterName": "[Insert SubChapter Name]"
+        },
+        {
+          "subChapterName": "test a "
+        }
+      ],
+      "categories": []
+    }
+  ]
+}

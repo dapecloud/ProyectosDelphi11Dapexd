@@ -3,55 +3,37 @@ object Form2: TForm2
   Top = 0
   Caption = 'Form2'
   ClientHeight = 568
-  ClientWidth = 876
+  ClientWidth = 868
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
+  OnActivate = FormCreate
+  OnCreate = FormCreate
   DesignerMasterStyle = 3
-  object Buscar: TButton
-    Position.X = 8.000000000000000000
-    Position.Y = 80.000000000000000000
-    TabOrder = 0
-    Text = 'Buscar'
-    OnClick = BuscarClick
-  end
-  object Submit: TButton
-    Position.X = 8.000000000000000000
-    Position.Y = 132.000000000000000000
-    TabOrder = 1
-    Text = 'Submit'
-    OnClick = SubmitClick
-  end
   object Label1: TLabel
-    Position.X = 89.000000000000000000
-    Position.Y = 101.000000000000000000
-    Size.Width = 536.000000000000000000
-    Size.Height = 23.000000000000000000
+    Position.X = 121.000000000000000000
+    Position.Y = 112.000000000000000000
+    Size.Width = 688.000000000000000000
+    Size.Height = 44.000000000000000000
     Size.PlatformDefault = False
-    Text = 'Haga click en Buscar para seleccionar el .json'
-    TabOrder = 2
-    OnClick = BuscarClick
+    Text = 'Da click en el boton Buscar para seleccionar el archivo .json'
+    TabOrder = 0
   end
   object TreeView1: TTreeView
-    Position.X = 89.000000000000000000
-    Position.Y = 132.000000000000000000
-    Size.Width = 752.000000000000000000
-    Size.Height = 428.000000000000000000
+    Position.X = 121.000000000000000000
+    Position.Y = 164.000000000000000000
+    Size.Width = 688.000000000000000000
+    Size.Height = 389.000000000000000000
     Size.PlatformDefault = False
-    TabOrder = 3
-    Viewport.Width = 752.000000000000000000
-    Viewport.Height = 428.000000000000000000
+    TabOrder = 1
+    Viewport.Width = 688.000000000000000000
+    Viewport.Height = 389.000000000000000000
   end
-  object Label2: TLabel
-    Position.X = 8.000000000000000000
-    Position.Y = 32.000000000000000000
-    Size.Width = 833.000000000000000000
-    Size.Height = 49.000000000000000000
-    Size.PlatformDefault = False
-    Text = 
-      'Lector de Archivos JSON, primero selecciona el archivo donde lo ' +
-      'tengas guardado en el boton buscar, despu'#233's da click en submit p' +
-      'ara mostrarlo'
-    TabOrder = 5
+  object Button1: TButton
+    Position.X = 32.000000000000000000
+    Position.Y = 112.000000000000000000
+    TabOrder = 2
+    Text = 'Button1'
+    OnClick = Button1Click
   end
 end

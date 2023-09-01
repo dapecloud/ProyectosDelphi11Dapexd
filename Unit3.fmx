@@ -1,0 +1,39 @@
+object Form2: TForm2
+  Left = 0
+  Top = 0
+  Caption = 'Form2'
+  ClientHeight = 568
+  ClientWidth = 868
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnActivate = FormCreate
+  OnCreate = FormCreate
+  DesignerMasterStyle = 3
+  object Label1: TLabel
+    Position.X = 121.000000000000000000
+    Position.Y = 112.000000000000000000
+    Size.Width = 688.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Da click en el boton Buscar para seleccionar el archivo .json'
+    TabOrder = 0
+  end
+  object TreeView1: TTreeView
+    Position.X = 121.000000000000000000
+    Position.Y = 164.000000000000000000
+    Size.Width = 688.000000000000000000
+    Size.Height = 389.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    Viewport.Width = 688.000000000000000000
+    Viewport.Height = 389.000000000000000000
+  end
+  object Button1: TButton
+    Position.X = 32.000000000000000000
+    Position.Y = 112.000000000000000000
+    TabOrder = 2
+    Text = 'abrir'
+    OnClick = Button1Click
+  end
+end

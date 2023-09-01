@@ -39,35 +39,103 @@ end;
 
 procedure TForm2.Button1Click(Sender: TObject);
 begin
-  CargarProductosDesdeJSON('/sdcard/DCIM/SharedFolder/ejemplo4.json');
-  MostrarProductosEnTreeView;
+  try
+  //showmessage para depurar
+    ShowMessage('Antes de cargar el archivo JSON');
+    CargarProductosDesdeJSON('/sdcard/DCIM/SharedFolder/ejemplo3.json');
+      //showmessage para depurar
+    ShowMessage('Después de cargar el archivo JSON');
+    MostrarProductosEnTreeView;
+  except
+    on E: Exception do
+      ShowMessage('Error: ' + E.Message);
+  end;
 end;
 
 procedure TForm2.CargarProductosDesdeJSON(const FileName: string);
 var
   JSONString: string;
   JSONValue: TJSONValue;
-  Producto: TJSONObject;
+  ResultsArray, SubChapterList, CategoryList: TJSONArray;
   ProductoObj: TProducto;
-  ProductosArray: TJSONArray;
-  i: Integer;
+  i, j, k: Integer;
+  chapterName, subChapterName, categoryName: string;
 begin
+  ShowMessage('Entrando a CargarProductosDesdeJSON');
+
   JSONString := TFile.ReadAllText(FileName);
   JSONValue := TJSONObject.ParseJSONValue(JSONString);
+  ShowMessage(JSONValue.ToJSON);
 
-  if JSONValue is TJSONArray then
+  if JSONValue is TJSONObject then
   begin
-    ProductosList.Clear;
-    ProductosArray := TJSONArray(JSONValue);
+    ShowMessage('Dentro del if JSONValue is TJSONObject');
 
-    for i := 0 to ProductosArray.Count - 1 do
+    ProductosList.Clear;
+    ResultsArray := JSONValue.GetValue<TJSONArray>('results');
+
+    for i := 0 to ResultsArray.Count - 1 do
     begin
-      Producto := TJSONObject(ProductosArray.Items[I]);
-      ProductoObj := TProducto.Create;
-      ProductoObj.Nombre := Producto.GetValue('Nombre').Value;
-      ProductoObj.Precio := StrToFloatDef(Producto.GetValue('Precio').Value, 0);
-      ProductoObj.Categoria := Producto.GetValue('Categoria').Value;
-      ProductosList.Add(ProductoObj);
+      ShowMessage('Dentro del primer loop, i=' + IntToStr(i));
+
+      chapterName := ResultsArray.Items[i].GetValue<string>('chapterName');
+      subChapterList := ResultsArray.Items[i].GetValue<TJSONArray>('subChapterList');
+      categoryList := ResultsArray.Items[i].GetValue<TJSONArray>('categories');
+
+      if Assigned(subChapterList) and (subChapterList.Count > 0) then
+      begin
+        // Handle Chapters with SubChapters
+        for j := 0 to subChapterList.Count - 1 do
+        begin
+          subChapterName := subChapterList.Items[j].GetValue<string>('subChapterName');
+          ShowMessage('Dentro del segundo loop, subChapterName=' + subChapterName);
+
+          categoryList := subChapterList.Items[j].GetValue<TJSONArray>('categories');
+
+          if Assigned(categoryList) and (categoryList.Count > 0) then
+          begin
+            // Handle SubChapters with Categories
+            for k := 0 to categoryList.Count - 1 do
+            begin
+              categoryName := categoryList.Items[k].GetValue<string>('categoryName');
+              ShowMessage('Dentro del tercer loop, categoryName=' + categoryName);
+
+              if categoryName <> '' then
+              begin
+                ProductoObj := TProducto.Create;
+                ProductoObj.chapterName := chapterName;
+                ProductoObj.subChapterName := subChapterName;
+                ProductoObj.categories := categoryName;
+                ProductosList.Add(ProductoObj);
+              end;
+            end;
+          end;
+        end;
+      end
+      else if Assigned(categoryList) and (categoryList.Count > 0) then
+      begin
+        // Handle Chapters with Categories
+        for k := 0 to categoryList.Count - 1 do
+        begin
+          categoryName := categoryList.Items[k].GetValue<string>('categoryName');
+          ShowMessage('Dentro del tercer loop, categoryName=' + categoryName);
+
+          if categoryName <> '' then
+          begin
+            ProductoObj := TProducto.Create;
+            ProductoObj.chapterName := chapterName;
+            ProductoObj.categories := categoryName;
+            ProductosList.Add(ProductoObj);
+          end;
+        end;
+      end
+      else
+      begin
+        // Handle Chapters without SubChapters or Categories
+        ProductoObj := TProducto.Create;
+        ProductoObj.chapterName := chapterName;
+        ProductosList.Add(ProductoObj);
+      end;
     end;
   end;
 end;
@@ -76,63 +144,62 @@ procedure TForm2.MostrarProductosEnTreeView;
 var
   Producto: TProducto;
   Item: TTreeViewItem;
-  PrecioNode, CategoriaNode: TTreeViewItem;
 begin
   TreeView1.Clear;
 
   for Producto in ProductosList do
   begin
     Item := TTreeViewItem.Create(nil);
-    Item.Text := Producto.Nombre;
+    Item.Text := 'Capítulo: ' + Producto.chapterName;
     TreeView1.AddObject(Item);
 
-    PrecioNode := TTreeViewItem.Create(Item);
-    PrecioNode.Text := 'Precio: ' + FloatToStr(Producto.Precio);
-    Item.AddObject(PrecioNode);
+    Item := TTreeViewItem.Create(nil);
+    Item.Text := 'Subcapítulo: ' + Producto.subChapterName;
+    TreeView1.AddObject(Item);
 
-    CategoriaNode := TTreeViewItem.Create(Item);
-    CategoriaNode.Text := 'Categoría: ' + Producto.Categoria;
-    Item.AddObject(CategoriaNode);
+    Item := TTreeViewItem.Create(nil);
+    Item.Text := 'Categorías: ' + Producto.categories;
+    TreeView1.AddObject(Item);
   end;
 end;
+
 procedure TForm2.Edit1Change(Sender: TObject);
 var
   Filtro: string;
   Producto: TProducto;
-  Item, PrecioNode, CategoriaNode: TTreeViewItem;
+  Item, SubChapterNode, CategoriesNode: TTreeViewItem;
   NoResultsNode: TTreeViewItem;
 begin
   Filtro := Edit1.Text.ToLower;
   TreeView1.Clear;
 
   NoResultsNode := TTreeViewItem.Create(nil);
-  NoResultsNode.Text := 'Descripción no encontrada, si buscas precio usa , en lugar de .';
+  NoResultsNode.Text := 'Descripción no encontrada';
   TreeView1.AddObject(NoResultsNode);
 
   for Producto in ProductosList do
   begin
     if Filtro.IsEmpty or
-       (Pos(Filtro, Producto.Nombre.ToLower) > 0) or
-       (Pos(Filtro, FloatToStr(Producto.Precio)) > 0) or
-       (Pos(Filtro, Producto.Categoria.ToLower) > 0) then
+       (Pos(Filtro, Producto.chapterName.ToLower) > 0) or
+       (Pos(Filtro, Producto.subChapterName.ToLower) > 0) or
+       (Pos(Filtro, Producto.categories.ToLower) > 0) then
     begin
       TreeView1.RemoveObject(NoResultsNode);
 
       Item := TTreeViewItem.Create(nil);
-      Item.Text := Producto.Nombre;
+      Item.Text := 'Capítulo: ' + Producto.chapterName;
       TreeView1.AddObject(Item);
 
-      PrecioNode := TTreeViewItem.Create(Item);
-      PrecioNode.Text := 'Precio: ' + FloatToStr(Producto.Precio);
-      Item.AddObject(PrecioNode);
+      SubChapterNode := TTreeViewItem.Create(Item);
+      SubChapterNode.Text := 'Subcapítulo: ' + Producto.subChapterName;
+      Item.AddObject(SubChapterNode);
 
-      CategoriaNode := TTreeViewItem.Create(Item);
-      CategoriaNode.Text := 'Categoría: ' + Producto.Categoria;
-      Item.AddObject(CategoriaNode);
+      CategoriesNode := TTreeViewItem.Create(Item);
+      CategoriesNode.Text := 'Categorías: ' + Producto.categories;
+      Item.AddObject(CategoriesNode);
     end;
   end;
 end;
-
 
 end.
 

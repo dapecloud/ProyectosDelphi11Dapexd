@@ -8,19 +8,12 @@ uses
 type
   TProducto = class
   public
-    Nombre: string;
-    Precio: Double;
-    Categoria: string;
-    function ToString: string; override;
+    chapterName: string;
+    subChapterName: string;
+    categories: string;
   end;
 
 implementation
 
-{ TProducto }
-
-function TProducto.ToString: string;
-begin
-  Result := Format('%s - %.2f %s', [Nombre, Precio, Categoria]);
-end;
-
 end.
+

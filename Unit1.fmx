@@ -1,0 +1,40 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Form1'
+  ClientHeight = 480
+  ClientWidth = 640
+  FormFactor.Width = 320
+  FormFactor.Height = 480
+  FormFactor.Devices = [Desktop]
+  OnCreate = FormCreate
+  DesignerMasterStyle = 3
+  object Button1: TButton
+    Position.X = 72.000000000000000000
+    Position.Y = 56.000000000000000000
+    TabOrder = 0
+    Text = 'show'
+    OnClick = Button1Click
+  end
+  object TreeView1: TTreeView
+    Position.X = 72.000000000000000000
+    Position.Y = 108.000000000000000000
+    Size.Width = 393.000000000000000000
+    Size.Height = 364.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 1
+    OnClick = TreeView1Click
+    Viewport.Width = 393.000000000000000000
+    Viewport.Height = 364.000000000000000000
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 2
+    Position.X = 153.000000000000000000
+    Position.Y = 68.000000000000000000
+    Size.Width = 312.000000000000000000
+    Size.Height = 32.000000000000000000
+    Size.PlatformDefault = False
+    OnChangeTracking = Edit1ChangeTracking
+  end
+end

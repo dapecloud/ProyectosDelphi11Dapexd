@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/08/29 17:16:34.000.625,=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/08/29 17:17:28.000.712,=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/08/29 17:18:22.000.354,=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit2.pas</Transaction>
+    <Transaction>2023/08/29 17:18:50.000.199,=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit3.pas</Transaction>
+    <Transaction>2023/08/29 17:26:52.000.173,C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit2.pas=C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\MyJsonClasses.pas</Transaction>
+    <Transaction>2023/08/29 17:43:19.000.280,C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\MyJsonClasses.pas=C:\PROYECTOS\Carlos\proyectos delphi\mostrardeserealizacion\MyJsonClasses.pas</Transaction>
+    <Transaction>2023/08/29 17:43:36.000.585,C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\PROYECTOS\Carlos\proyectos delphi\mostrardeserealizacion\Unit1.pas</Transaction>
+    <Transaction>2023/08/29 17:43:36.000.585,C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Unit1.fmx=C:\PROYECTOS\Carlos\proyectos delphi\mostrardeserealizacion\Unit1.fmx</Transaction>
+    <Transaction>2023/08/29 17:43:40.000.180,C:\Users\juel3\OneDrive\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\PROYECTOS\Carlos\proyectos delphi\mostrardeserealizacion\Project1.dproj</Transaction>
+    <Transaction>2023/08/29 17:46:52.000.276,C:\PROYECTOS\Carlos\proyectos delphi\mostrardeserealizacion\Project1.dproj=C:\PROYECTOS\Carlos\proyectos delphi\mostrardeserealizacion\MostradorDeserealizacion.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

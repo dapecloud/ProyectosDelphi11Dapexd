@@ -2,38 +2,98 @@ object Form2: TForm2
   Left = 0
   Top = 0
   Caption = 'Form2'
-  ClientHeight = 568
-  ClientWidth = 868
+  ClientHeight = 552
+  ClientWidth = 1032
   FormFactor.Width = 320
   FormFactor.Height = 480
   FormFactor.Devices = [Desktop]
-  OnActivate = FormCreate
-  OnCreate = FormCreate
   DesignerMasterStyle = 3
-  object Label1: TLabel
-    Position.X = 121.000000000000000000
-    Position.Y = 112.000000000000000000
-    Size.Width = 688.000000000000000000
-    Size.Height = 44.000000000000000000
-    Size.PlatformDefault = False
-    Text = 'Da click en el boton Buscar para seleccionar el archivo .json'
+  object Calcular: TButton
+    Position.X = 104.000000000000000000
+    Position.Y = 50.000000000000000000
     TabOrder = 0
+    Text = 'Calcular'
+    OnClick = CalcularClick
   end
-  object TreeView1: TTreeView
-    Position.X = 121.000000000000000000
-    Position.Y = 164.000000000000000000
-    Size.Width = 688.000000000000000000
-    Size.Height = 389.000000000000000000
+  object ListBox1: TListBox
+    Position.X = 48.000000000000000000
+    Position.Y = 150.000000000000000000
+    Size.Width = 200.000000000000000000
+    Size.Height = 371.000000000000000000
     Size.PlatformDefault = False
     TabOrder = 1
-    Viewport.Width = 688.000000000000000000
-    Viewport.Height = 389.000000000000000000
+    DisableFocusEffect = True
+    DefaultItemStyles.ItemStyle = ''
+    DefaultItemStyles.GroupHeaderStyle = ''
+    DefaultItemStyles.GroupFooterStyle = ''
+    Viewport.Width = 200.000000000000000000
+    Viewport.Height = 371.000000000000000000
+  end
+  object Edit1: TEdit
+    Touch.InteractiveGestures = [LongTap, DoubleTap]
+    TabOrder = 2
+    Position.X = 207.000000000000000000
+    Position.Y = 50.000000000000000000
+  end
+  object TreeView1: TTreeView
+    Position.X = 256.000000000000000000
+    Position.Y = 150.000000000000000000
+    Size.Width = 585.000000000000000000
+    Size.Height = 371.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 3
+    Viewport.Width = 585.000000000000000000
+    Viewport.Height = 371.000000000000000000
+  end
+  object Label1: TLabel
+    Position.X = 104.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 377.000000000000000000
+    Size.Height = 23.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Conjetura de Collatz con historial en Arbol'
+    TabOrder = 4
   end
   object Button1: TButton
-    Position.X = 32.000000000000000000
-    Position.Y = 112.000000000000000000
-    TabOrder = 2
-    Text = 'Button1'
+    Position.X = 392.000000000000000000
+    Position.Y = 55.000000000000000000
+    Size.Width = 89.000000000000000000
+    Size.Height = 44.000000000000000000
+    Size.PlatformDefault = False
+    TabOrder = 5
+    Text = 'Reiniciar'
     OnClick = Button1Click
+  end
+  object Label2: TLabel
+    Position.X = 48.000000000000000000
+    Position.Y = 119.000000000000000000
+    Size.Width = 200.000000000000000000
+    Size.Height = 23.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Proceso:'
+    TabOrder = 6
+  end
+  object Label3: TLabel
+    Position.X = 256.000000000000000000
+    Position.Y = 119.000000000000000000
+    Size.Width = 577.000000000000000000
+    Size.Height = 23.000000000000000000
+    Size.PlatformDefault = False
+    Text = 'Arbol de Historial'
+    TabOrder = 7
+  end
+  object Label4: TLabel
+    Position.X = 489.000000000000000000
+    Position.Y = 24.000000000000000000
+    Size.Width = 480.000000000000000000
+    Size.Height = 129.000000000000000000
+    Size.PlatformDefault = False
+    Text = 
+      'La conjetura de Collatz propone que un n'#250'mero si es impar se mul' +
+      'tiplica x3 y se suma 1, si luego ese n'#250'mero es par, se divide en' +
+      'tre 2, y as'#237' sucesivamente hasta llegar siempre a 4,2 y 1, dando' +
+      ' un ciclo que el 1 va al 2 y el 2 al 1 infinitamente, aunque aqu' +
+      #237' solo se muestra hasta el 1'
+    TabOrder = 8
   end
 end

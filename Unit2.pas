@@ -5,21 +5,24 @@ interface
 uses
   System.SysUtils, System.Types, System.UITypes, System.Classes, System.Variants,
   FMX.Types, FMX.Controls, FMX.Forms, FMX.Graphics, FMX.Dialogs, FMX.ListBox,
-  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.Layouts, FMX.TreeView,
-  System.JSON, System.IOUtils, FMX.Platform, Androidapi.Helpers, Androidapi.JNI.Net,
-  Androidapi.JNI.JavaTypes, FMX.Helpers.Android, Androidapi.JNI.GraphicsContentViewText;
+  FMX.Controls.Presentation, FMX.StdCtrls, FMX.Edit, FMX.Layouts, FMX.TreeView;
 
 type
   TForm2 = class(TForm)
+    ListBox1: TListBox;
+    Calcular: TButton;
+    Edit1: TEdit;
     TreeView1: TTreeView;
     Label1: TLabel;
     Button1: TButton;
-    procedure FormCreate(Sender: TObject);
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    procedure CalcularClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
-    procedure LeerJSONArchivo(const RutaArchivo: string);
-    procedure AgregarNodosTreeView(NodoJSON: TJSONValue; NodoTreeView: TTreeViewItem);
+    procedure ConjeturaCollatz(n: Integer);
   public
     { Public declarations }
   end;
@@ -31,98 +34,54 @@ implementation
 
 {$R *.fmx}
 
+  procedure LimpiarTreeView(TreeView: TTreeView);
+begin
+  TreeView.Clear;
+end;
+
 procedure TForm2.Button1Click(Sender: TObject);
 begin
-    LeerJSONArchivo(TPath.Combine('/sdcard/DCIM/SharedFolder', 'ejemplo2.json'));
+  LimpiarTreeView(TreeView1);
+  ListBox1.Items.Clear;
 end;
 
-procedure TForm2.FormCreate(Sender: TObject);
-begin
-  // Establecer la ruta predeterminada en Label1
-  Label1.Text := TPath.Combine('/sdcard/DCIM/SharedFolder', 'ejemplo2.json');
-  ShowMessage ('Recuerda Entrar a Ajustes>Aplicaciones>LeerJSON2 y Dar el permiso de acceder a multimedia');
-end;
-
-
-procedure TForm2.LeerJSONArchivo(const RutaArchivo: string);
+procedure TForm2.CalcularClick(Sender: TObject);
 var
-  JSONArchivo: TStringStream;
-  NodoJSON: TJSONValue;
+  numero: Integer;
 begin
-  JSONArchivo := TStringStream.Create;
-  try
-    JSONArchivo.LoadFromFile(RutaArchivo);
-    NodoJSON := TJSONObject.ParseJSONValue(JSONArchivo.DataString);
-    if Assigned(NodoJSON) then
-    begin
-      TreeView1.Clear;
-      AgregarNodosTreeView(NodoJSON, nil);
-    end
-    else
-      ShowMessage('Error al leer el archivo JSON');
-  finally
-    JSONArchivo.Free;
-  end;
+  ListBox1.Items.Clear;
+
+  if TryStrToInt(Edit1.Text, numero) then
+    ConjeturaCollatz(numero)
+  else
+    ShowMessage('Ingrese un número válido.');
 end;
 
-procedure TForm2.AgregarNodosTreeView(NodoJSON: TJSONValue; NodoTreeView: TTreeViewItem);
+procedure TForm2.ConjeturaCollatz(n: Integer);
 var
-  I, J: Integer;
-  NuevoNodo: TTreeViewItem;
-  JSONPair: TJSONPair;
-  JSONValue, SubJsonValue: TJSONValue;
+  RootNode, Node, SubNode: TTreeViewItem;
 begin
-  if NodoJSON is TJSONObject then
+  ListBox1.Items.Add('Número Inicial: ' + IntToStr(n));
+
+  RootNode := TTreeViewItem.Create(nil); // Creamos un nuevo nodo raíz
+  RootNode.Text := 'Evento ' + IntToStr(n); // Establecemos el texto del nodo raíz como el número inicial
+  TreeView1.AddObject(RootNode); // Agregamos el nodo raíz al árbol
+
+  while n > 1 do
   begin
-    for I := 0 to TJSONObject(NodoJSON).Count - 1 do
-    begin
-      JSONPair := TJSONObject(NodoJSON).Pairs[I];
-      JSONValue := JSONPair.JsonValue;
+    if n mod 2 = 0 then
+      n := n div 2
+    else
+      n := 3 * n + 1;
 
-      if JSONValue is TJSONObject then
-      begin
-        NuevoNodo := TTreeViewItem.Create(TreeView1);
-        NuevoNodo.Text := (JSONValue as TJSONObject).GetValue<string>('chapterName');
-        if Assigned(NodoTreeView) then
-          NodoTreeView.AddObject(NuevoNodo)
-        else
-          TreeView1.AddObject(NuevoNodo);
+    ListBox1.Items.Add('Siguiente número: ' + IntToStr(n));
 
-        AgregarNodosTreeView(JSONValue, NuevoNodo);
-      end
-      else if JSONValue is TJSONArray then
-      begin
-        for J := 0 to TJSONArray(JSONValue).Count - 1 do
-        begin
-          SubJsonValue := TJSONArray(JSONValue).Items[J];
-
-          if SubJsonValue is TJSONObject then
-          begin
-            if (SubJsonValue as TJSONObject).GetValue('subChapterName') <> nil then
-            begin
-              NuevoNodo := TTreeViewItem.Create(TreeView1);
-              NuevoNodo.Text := (SubJsonValue as TJSONObject).GetValue<string>('subChapterName');
-              if Assigned(NodoTreeView) then
-                NodoTreeView.AddObject(NuevoNodo)
-              else
-                TreeView1.AddObject(NuevoNodo);
-
-              AgregarNodosTreeView(SubJsonValue, NuevoNodo);
-            end
-            else if (SubJsonValue as TJSONObject).GetValue('categoryName') <> nil then
-            begin
-              NuevoNodo := TTreeViewItem.Create(TreeView1);
-              NuevoNodo.Text := (SubJsonValue as TJSONObject).GetValue<string>('categoryName');
-              if Assigned(NodoTreeView) then
-                NodoTreeView.AddObject(NuevoNodo)
-              else
-                TreeView1.AddObject(NuevoNodo);
-            end;
-          end;
-        end;
-      end;
-    end;
+    Node := TTreeViewItem.Create(RootNode); // Creamos un nuevo nodo hijo
+    Node.Text := IntToStr(n); // Establecemos el texto del nodo hijo como el siguiente número
+    RootNode.AddObject(Node); // Agregar el nodo hijo al nodo raíz
+    RootNode := Node; // Establecer el nodo hijo como el nuevo nodo raíz para el siguiente número
   end;
 end;
+
 end.
 

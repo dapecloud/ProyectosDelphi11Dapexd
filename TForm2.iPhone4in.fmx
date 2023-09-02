@@ -20,8 +20,14 @@ inherited HeaderFooterwithNavigation_iPhone4in: THeaderFooterwithNavigation_iPho
       320s
       452s)
     inherited TabItem1: TTabItem
+      Size.Width = 11.000000000000000000
+      Size.Height = 11.000000000000000000
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
+      inherited TreeView1: TTreeView
+        Viewport.Width = 100.000000000000000000
+        Viewport.Height = 100.000000000000000000
+      end
     end
     inherited TabItem2: TTabItem
       Size.Width = 11.000000000000000000

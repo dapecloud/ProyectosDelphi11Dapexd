@@ -26,6 +26,10 @@ inherited HeaderFooterwithNavigation_LgXhdpiPh: THeaderFooterwithNavigation_LgXh
     inherited TabItem1: TTabItem
       ExplicitSize.cx = 8.000000000000000000
       ExplicitSize.cy = 8.000000000000000000
+      inherited TreeView1: TTreeView
+        Viewport.Width = 100.000000000000000000
+        Viewport.Height = 100.000000000000000000
+      end
     end
     inherited TabItem2: TTabItem
       ExplicitSize.cx = 8.000000000000000000
